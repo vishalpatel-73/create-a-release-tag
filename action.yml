@@ -64,4 +64,4 @@ runs:
     - name: Output New Tag
       shell: bash
       run: |
-        echo "New tag: ${{ inputs.tag }}
+        echo "New tag: ${{ inputs.tag }}"
