@@ -15,7 +15,13 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - id: create-a-release-tag
+    - id: create-a-release-tag'
+      name: Record the start time
+      shell: bash
+      run: |
+        START_TIME=$(date +%s)
+
+    - name: Print input variables
       run: |
         echo "Tag: ${{ inputs.tag }} "
         echo "Message: ${{ inputs.message }} "
@@ -64,4 +70,14 @@ runs:
     - name: Output New Tag
       shell: bash
       run: |
-        echo "New tag: ${{ inputs.tag }}"
+        echo "✅ New tag: ${{ inputs.tag }}"
+
+    - name: Record the end time
+      shell: bash
+      run: |
+        END_TIME=$(date +%s)
+
+    - name: Calculate the execution time
+      shell: bash
+      run: |
+        echo "✨  Total execution time: $((END_TIME - START_TIME))"
