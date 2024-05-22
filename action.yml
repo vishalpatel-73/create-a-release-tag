@@ -60,5 +60,5 @@ runs:
       run: |
         git tag -a ${{ inputs.tag }} -m ${{ inputs.tag }}
         git push origin ${{ inputs.tag }}
-        echo " ✅ New Release Generated Successfully 🎯 "        
+        echo " ✅  New Release Generated Successfully  🎯 "        
         echo " ✨  New Release Tag (${{ inputs.tag }}) ✨ "
