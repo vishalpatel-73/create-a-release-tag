@@ -62,7 +62,7 @@ runs:
         git tag -a ${{ inputs.tag }} -m ${{ inputs.tag }}
         git push origin ${{ inputs.tag }}
 
-        echo "✅ New tag: ${{ inputs.tag }}"
+        echo "\n ✅ New tag: ${{ inputs.tag }} \n"
         END_TIME=$(date +%s)
 
-        echo "✨  Total execution time: $((END_TIME - START_TIME))"
+        echo "\n ✨  Total execution time: $((END_TIME - START_TIME)) \n"
