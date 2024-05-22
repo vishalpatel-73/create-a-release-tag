@@ -16,8 +16,7 @@ runs:
   using: "composite"
   steps:
     - id: create-a-release-tag
-      run: |
-        START_TIME=$(date +%s)
+      run: |        
         echo "Tag: ${{ inputs.tag }} "
         echo "Message: ${{ inputs.message }} "
         echo "Tag Exists Error: ${{ inputs.tag_exists_error }} "
@@ -61,10 +60,5 @@ runs:
       run: |
         git tag -a ${{ inputs.tag }} -m ${{ inputs.tag }}
         git push origin ${{ inputs.tag }}
-
-        echo -e " ✅  New Release Tag (${{ inputs.tag }})"
-        END_TIME=$(date +%s)
-        START_TIME_HUMAN=$(date -u -d "@${START_TIME}" +"%Y-%m-%d %H:%M:%S UTC")
-        END_TIME_HUMAN=$(date -u -d "@${END_TIME}" +"%Y-%m-%d %H:%M:%S UTC")
-        EXECUTION_TIME=$((END_TIME_HUMAN - START_TIME_HUMAN))
-        echo -e " ✨  Total execution time: $(date -u -d "@${EXECUTION_TIME}" +"%H:%M:%S UTC") "
+        echo " ✅ New Release Generated Successfully 🎯 "        
+        echo " ✨  New Release Tag (${{ inputs.tag }}) ✨ "
