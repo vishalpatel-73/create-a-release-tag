@@ -7,18 +7,19 @@ inputs:
   message:
     description: "The message associated with the tag"
     required: false
-  # tag_exists_error:
-  #   description: 'Whether to throw an error if the tag already exists'
-  #   required: false
-  #   default: 'false'
+  tag_exists_error:
+    description: "Whether to throw an error if the tag already exists"
+    required: false
+    default: "false"
 
 runs:
   using: "composite"
   steps:
-    - id: createsrelease
+    - id: create-a-release-tag
       run: |
         echo "Tag: ${{ inputs.tag }} "
         echo "Message: ${{ inputs.message }} "
+        echo "Tag Exists Error: ${{ inputs.tag_exists_error }} "
       shell: bash
 
     - name: Checkout
@@ -34,10 +35,33 @@ runs:
     - name: Determine Version
       uses: gittools/actions/gitversion/execute@v0.9.7
 
-    - name: Create Tag
+    - name: Configure Git
       shell: bash
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Check if the tag already exists
+      shell: bash
+      run: |
+        TAG_EXISTS=$(git ls-remote --tags origin | grep -c "refs/tags/${TAG}")
+        if [ "$TAG_EXISTS" -ne 0 ]; then
+          if [ "$TAG_EXISTS_ERROR" = "true" ]; then
+            echo "Error: Tag ${TAG} already exists."
+            exit 1
+          else
+            echo "Tag ${TAG} already exists. Skipping creation."
+            exit 0
+          fi
+        fi
+
+    - name: Create the New Tag
+      shell: bash
+      run: |
         git tag -a ${{ inputs.tag }} -m ${{ inputs.tag }}
         git push origin ${{ inputs.tag }}
+
+    - name: Output New Tag
+      shell: bash
+      run: |
+        echo "New tag: ${{ inputs.tag }}
