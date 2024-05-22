@@ -64,5 +64,5 @@ runs:
 
         echo -e " ✅  New Release Tag (${{ inputs.tag }})"
         END_TIME=$(date +%s)
-
-        echo -e " ✨  Total execution time: $((END_TIME - START_TIME))"
+        EXECUTION_TIME=$((END_TIME - START_TIME))
+        echo -e " ✨  Total execution time: $(date -u -d "@${EXECUTION_TIME}" +"%Y-%m-%d %H:%M:%S UTC") "
