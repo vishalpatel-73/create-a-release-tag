@@ -58,7 +58,7 @@ runs:
     - name: Create the New Tag
       shell: bash
       run: |
-        git tag -a ${{ inputs.tag }} -m ${{ inputs.tag }}
+        git tag -a ${{ inputs.tag }} -m ${{ inputs.message }}
         git push origin ${{ inputs.tag }}
         echo " ✅  New Release Generated Successfully  🎯 "        
         echo " ✨  New Release Tag (${{ inputs.tag }}) ✨ "
